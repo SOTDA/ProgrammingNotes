@@ -1,0 +1,158 @@
+binding data in angular three ways- 
+Interpolation - {{}}
+property binding  - [] inside Html tags
+Event binding - click etc.
+
+directive can change the behaviour and appearance of DOM element
+Directives can implement all lifecycle hooks
+Directives can not have templates
+
+
+directives Type 
+structual directive (* is structual deirective can modify DOM)
+Attribute directive (Generally not add or remove element)
+
+Built-in directives
+*ngIf
+*ngFor
+*ngSwitch
+[ngClass]
+[ngStyle]
+
+
+pipes
+pipes are for data transforamtion
+pipes doesn't change actual object.
+built-in Eg. DatePipe,UpperCasePipe,CurrencyPipe,DecimalPipe,JsonPipe (Mostly use for debugging),slicePipe,AsyncPipe 
+
+Lifecycle hooks
+component have lifecycle hooks which use to hook into different events on component
+lifecycle ends when component is end
+
+Every lifecycle contains the interface eg. OnInit
+ngOnChanges -> change detection -(can be applied on component or directive that has @input) ngOnChanges(change:SimpleChanges)- can be use to log something
+ngOnInit
+ngDoCheck-> IS used to detect change anywhere in component (generally not used)
+ngAfterConententInit -> used with <ng-content>
+ngAfterConententChecked ->used when we need to do something when the state is changes once.
+ngAfterViewInit -> @viewChild by default can be accessed in ngAfterViewInit
+ngAfterViewChecked ->
+ngOnDestroy -> Use case (uses to unsubscribe to the data or to reset some data or do logic on destroy component )
+
+
+
+change detection in @component
+	changeDetection: ChangeDetectionStrategy.OnPush can be used when component internal data is not going to change , and while using with @input and @output it must be used with
+	mutable data ie: we have to initiate data each time on change (arrayList.push(data) won't work instead we must use this.arrayList = [...this.arraylist,data])
+
+@viewchild while initializing component in other component this.component will be undefined in ngOnIntit. By Making @viewChild(,{static:true}) we can use it in ngOnInit when we dont have any asyncronys and static component
+@viewchildern is used if there are multiple instance and its staic prpertry is always flase.( operation can be done on first and last child and foreach child)
+
+Dynamic component renderign - <ng-template #user></ng-template> (#user is template reference)
+Access HTML element with template reference and assing its value (<div #nane></div> -> @ViewChild('name',{static:true }) name!: ElementRef;)->this.name.nativeElement.innerText = 'Hilton Hotels'
+
+#ngAfterContentInit
+contentProjection - <ng-contnet> will pass the content from parent to child and we can access and manupilate its instance in ngContentInit. It is prefered to use Input and Output .(It is use when we dont have control over component) . Example we can use it in FAQs section , design whole section just replace the content of questions.
+
+
+
+Dependency Injection( DI)
+dependency can be class or object that need to be injected in component and service.
+providers
+1)class based provider 
+2)Value based provider
+3)Factory
+
+ class based{{
+keep access modifier private - cause service can access it form template
+
+Dependency Resolution-
+Before v6 wehave to register service in providers in app.module.ts
+root will provide singleton instance accross application
+value based provider will create new instance everytime
+If you didnt register provider any where in hiararchey you will get nullInjectorError 
+
+Resolution modifier -
+-self   : IT is used when we know that we have to initialize service in same component , it will not check service up the hiararchey (kind of type safety)
+-Skip self : look up service in upper hiararchey
+-optional :can be used when we want some service in development but not in production . if provider is not provided then it will skip the error
+-Host Host will be applied on the parent component pause the execution from there
+}}
+
+value based{{
+	It will provide the value through app.module.ts proviers[{provide,useValue}]
+	to access the enviorment variables .
+	usecase use to access dom api like localstorage session etc with token 
+}}
+
+cmoponent Communication
+1)@input and @output
+2)@ViewChild and @ContentChild
+3)Using Service
+
+
+<<-- Angular http and observables -->> 
+httpclient internally use rxjs
+we can configure proxy using httpClient insted of using CORS 	
+
+observable has observer that will observe for change and internally next method is call. In observable we have three functions 
+next(when the stream value is changes),complete(when stream is complete),error(when stream gets some error) 
+
+
+Rxjs Operators - operators can be use to modify the stream of data
+shareReplay  - it is use to cache the data so we dont have to repeate call in stream of data
+this.subscription.unsubscribe will use to destroy subscription manually on ngOnDestroy
+catcherror - It is use the error handling generally use in service that is use to display error. 
+MapOperators - there are diifrent map operators it is use to manupilate data form stream .
+
+AsyncPipe - is use to subscribe stream of data  and it will automatically unsubscribe when the ngOnDestroy is called. 
+
+http interceptor - to perform operartions on each http request 
+usecase - apply commmon headers , add time stamp to each request , 
+
+App_Initializer - allow to inject function as the app is initialize.	
+
+----------------------------------- Angular Router-----------------------------------
+
+
+
+Activated route services is use to (read router data) , (snapshot data) , (access data from router)
+snapshot will never detect value change in same view .
+router is observable so can be access by pipe or subscribe
+param Map contains has and get method to check if property exists to avoid error
+
+
+
+
+---------------------------------FORMS ------------------------------------
+There are two types 
+1) template driven 
+2) reactive form
+
+template driven form need html side form and validation . I will require model to bind the form model with [(ngModle)] .
+
+
+
+=========Tips and tricks==========
+
+1)<div *ngSwitchCase="'User'"></div> (Here User is string not ts variable)
+2)Constructor should only uses for injecting some service else logic part goes in onInit()
+3)state Managment Libraries always generate pass new instance of data from parent to child.
+4)when you here module it will register at @NgModule 
+5)represent stream with the $ sign in rxjs
+
+last pause - 10h 56m
+
+
+To Be Google
+-play with watch in console
+-get anngular dev tool
+-Injection Token
+-proxy.config.json
+-Factory
+-tap and map fuctions
+-pipes and subscribe in rxjs
+
+Advance topics 
+ngrx
+rxjs other services
