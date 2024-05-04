@@ -1,0 +1,80 @@
+c# oops 
+
+object is declare by class and its can have modifier
+Constructor is used to create to control how the object is created
+
+static class use
+
+Type of coustructors-
+Default Constructor - Static variable 
+Parameterized Constructor
+Copy Constructor - use to deep copy object (clone object)
+Static Constructor - need to understand more
+Private Constructor - need to understand more
+
+4 pillars-
+Inheritance 
+Encaptulation
+Polymorphism
+Data Abstraction
+
+
+Encaptulation -
+achived by class identifiers (public,privateetc)
+
+
+Abstraction-
+can be achived with abstract classes and interfaces.
+Diffrence Between interfaces and abstract classes
+object of abstract class cannot be created and it can contain both abstract and regular method
+interfaces only contains body and cannot contains field
+Interface members are by default abstract and public
+An interface cannot contain a constructor (as it cannot be used to create objects)
+C# does not support "multiple inheritance" (a class can only inherit from one base class).
+ However, it can be achieved with interfaces, because the class can implement multiple interfaces. Note: To implement multiple interfaces, separate them with a comma (see example below).
+
+
+Polymorphism -
+    Compile time - method overloading ,operator overloading
+    runtime - virual and override 
+
+
+destructor-
+
+diffrence Between class and structure
+A struct is a value type, whereas a class is a reference type.
+struct is stack type and class is heap type
+struct is value type and class is reference type
+inheritance not supported , class supported
+parameterless counstructor not supported , class supported
+Assignment Operation	Copies the value ,	Copies the reference
+
+
+Dependency Injection
+Dependency injection is use to create less coupled code and it will create centeralized intiation insted of , initialization of code every places.
+thus if code changes or prameter changes we didn't have to change it in evey places.
+types-
+    transient - for each use create new instance of object.
+    singleton - only one instance is cretaed for all application.
+    scoped - hybrid maintain the access 
+
+
+
+repository pattern
+
+
+
+SOLID Principles
+    Single Responsibility Principles
+    Open CLose Principles
+    Liskoves Principles
+    Interface Segregation Principles
+    Dependency Inversion Principles
+
+    
+
+
+Future Topics
+Razore webServer Project
+Loggers
+kesteral Server.

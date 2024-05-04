@@ -1,0 +1,27 @@
+mvc lifecycle
+
+
+differnce between actionResult and IactionResult
+IActionResult is an interface, we can create a custom response as a return, when you use ActionResult you can return only predefined ones for returning a View or 
+a resource. With IActionResult we can return a response, or error as well. On the other hand, ActionResult is an abstract class, and you would need to make a custom 
+class that inherits.
+
+
+webconfig
+setting xml file . it can contains Database connections, Caching settings, Session States, Error Handling, Security.
+There is also Machine config file . The Machine.config file contains settings for all sites running on the machine provided another .config further up the chain does 
+not override any of these settings. Although Machine.config provides a global configuration option, you can use .config files inside individual website directories to
+ provide more granular control.
+
+
+ types of routuing 
+ convential routing 
+ attribute routing
+
+
+ difference between 
+ ViewResult and Redirect result
+
+
+
+ filters and action filters
