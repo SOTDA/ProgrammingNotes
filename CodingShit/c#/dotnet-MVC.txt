@@ -1,0 +1,54 @@
+mvc lifecycle
+
+differnce between actionResult and IactionResult
+IActionResult is an interface, we can create a custom response as a return, when you use ActionResult you can return only predefined ones for returning a View or 
+a resource. With IActionResult we can return a response, or error as well. On the other hand, ActionResult is an abstract class, and you would need to make a custom 
+class that inherits.
+
+
+webconfig
+    setting xml file . it can contains Database connections, Caching settings, Session States, Error Handling, Security.
+    There is also Machine config file . The Machine.config file contains settings for all sites running on the machine provided another .config further up the chain does 
+    not override any of these settings. Although Machine.config provides a global configuration option, you can use .config files inside individual website directories to
+    provide more granular control.
+
+ROUTING - Routing is the first step in the ASP.NET MVC pipeline. Routing is a pattern-matching system that matches the incoming request to the registered URL patterns residing in the Route Table. 
+    When an ASP.NET MVC application starts, it registers patterns to the RouteTable to tell the routing engine to give a response to the requests that match these patterns.
+    An application has only one RouteTable and it resides in the Application_Start event of Global.asax of the application.
+    (we can Constrint,optiona and default parameter in routing) 
+ types of routing 
+    convential routing
+
+    attribute routing
+    It creates routes based on attributes placed on the controller or action level. Attribute routing provides us more control over the URL generation patterns which helps us in SEO.
+    it provide routing token such as [area], [controller], and [action]. These tokens get replaced by their values in the route table.
+    The most common root cause of slow routing performance is usually a badly behaving custom middleware.
+
+
+ difference between 
+ ViewResult and Redirect result
+
+ filters and action filters
+
+MiddleWare
+
+
+
+
+Diffrence Between ViewBag, ViewData And TempData In MVC.
+    ViewBag - This will pass the data as a property of the object. And we have no need to typecast to read the data or for null checking. Its scope is permitted to the
+        current request, and  become null while redirecting.
+    ViewData - Data is passed in the form of a key-value pair. Typecasting is required to read the data in View if the data is complex, and we need to ensure a null check 
+        to avoid null exceptions. scope it is restricted to the current request, its value will become null while redirecting.
+    TempData - TempData is a dictionary object to passes the data from one action to another action in the same Controller or different Controllers. Usually, stored in a 
+        session object. Tempdata is also required to typecast and for null checking before reading data from it. TempData scope is limited to the next request [if we want 
+        TempData to be available even further, we should use Keep and Peek.]
+============================================
+Connection and Operation To Database
+-EnttiyFrameWork
+-EDIO.net 
+
+Future Topics
+Razor webServer Project
+Loggers
+kesteral Server.
