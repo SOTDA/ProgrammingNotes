@@ -39,7 +39,7 @@ Extension methods -
             If same method is present in both parent and derived class it is managed by virtual and override keywords.
 
             Sealed and staic keyword is use to prevent class form inheritance.
-            Diffrence - you can't create object of sealed class but you can create object of static class.
+            Diffrence - you can create object of sealed class but you can't create object of static class.we can't inherit sealed
 
             we can call the constructor of the base class from the derived class like -
                     public class TestClass2 : TestClass1
@@ -108,11 +108,11 @@ Singleton
 
 
 SOLID Principles
-    Single Responsibility Principles
-    Open Close Principles
-    Liskoves Principles
-    Interface Segregation Principles
-    Dependency Inversion Principles
+    Single Responsibility Principles - calss should have single Responsibility and should do what it ment to be.
+    Open Close Principles - class should be open for extenttion but closed for modification ( we can ass extra functionality but cant change the core functionality )  
+    Liskoves Principles - subclass can be substituted for there parent class
+    Interface Segregation Principles - Unrelated interfaces should be seprated Clients should not be force to implement something they dont need   
+    Dependency Inversion Principles - Classes should be depend upon abstraction and not concrete classes.
 
     
 Lazy Loading in c#
@@ -123,6 +123,17 @@ Lazy Loading in c#
 
     Include and thenInclude in EntiyFrameWork will egarload all childdata.
     Entry and Collection,refrence is use for Explicit loading.
+
+    Lazy Loading
+     - Default behavior of EF
+     - Loads data when it is accessed for the first time
+     - Does'nt load the child element if you do not ask it for
+     - Multiple Query Execute within child element   
+                
+    Egar Loading 
+    - Include will load all the child entity bbase on th foreign key .
+    - It will increase the transfer data amount and but decrease the amount of query hits
+    Explicit Loading - 
 
 var vs dynamic
     changing type in code will give error after declaration in var and dynamic will not give compile time error.
@@ -150,6 +161,33 @@ Delegates - Delegates in C# are similar to the function pointer in C/C++. Delega
     A delegate will call only a method which agrees with its signature and return type. A method can be a static method associated with a class or can be an
      instance method associated with an object, it doesn’t matter. 
 
+Since C# 8, default implementations can also be included in interfaces.
+
+C# Access Modifiers
+In C#, members of a class can be marked with access modifiers, including public and private. A public member can be accessed by other classes. A private member can only be accessed by code in the same class.
+By default, fields, properties, and methods are private, and classes are public.
+
+C# Field
+In C#, a field stores a piece of data within an object. It acts like a variable and may have a different value for each instance of a type.
+A field can have a number of modifiers, including: public, private, static, and readonly. If no access modifier is provided, a field is private by default.
+
+C# this Keyword
+In C#, the this keyword refers to the current instance of a class.
+
+C# Members
+In C#, a class contains members, which define the kind of data stored in a class and the behaviors a class can perform. 
+
+Extension Methods
+Extension methods are special static methods that can be called as if they were instance methods of an existing type.
+ we can also create extention method for IEnumerable.
+They are a convenient way to add new methods to an existing class without changing the original source code or inheriting from the class.
+Extension methods look and behave like instance methods, but there are a few important differences to keep in mind:
+Extension methods cannot access private members of the extended type.
+They also do not participate in inheritance or polymorphism.
+You cannot override an existing method with an extension method.
+
+
+
 To LEARN
 value type and refrence type
 Boxing and Unboxing.
@@ -157,6 +195,8 @@ repository pattern
 implicit and explicit interface
 staic and non static memebers
 Exception and multiple exception    
+async await 
+threading   
 
 Yes, one can create an Object Creation by using the following methods-
 

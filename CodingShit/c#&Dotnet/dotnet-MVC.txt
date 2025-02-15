@@ -1,0 +1,120 @@
+mvc lifecycle
+
+differnce between actionResult and IactionResult
+IActionResult is an interface, we can create a custom response as a return, when you use ActionResult you can return only predefined ones for returning a View or 
+a resource. With IActionResult we can return a response, or error as well. On the other hand, ActionResult is an abstract class, and you would need to make a custom 
+class that inherits.
+
+
+webconfig
+    setting xml file . it can contains Database connections, Caching settings, Session States, Error Handling, Security.
+    There is also Machine config file . The Machine.config file contains settings for all sites running on the machine provided another .config further up the chain does 
+    not override any of these settings. Although Machine.config provides a global configuration option, you can use .config files inside individual website directories to
+    provide more granular control.
+
+ROUTING - Routing is the first step in the ASP.NET MVC pipeline. Routing is a pattern-matching system that matches the incoming request to the registered URL patterns residing in the Route Table. 
+    When an ASP.NET MVC application starts, it registers patterns to the RouteTable to tell the routing engine to give a response to the requests that match these patterns.
+    An application has only one RouteTable and it resides in the Application_Start event of Global.asax of the application.
+    (we can Constrint,optiona and default parameter in routing) 
+ types of routing 
+
+    convential routing
+    This is the default routing mechanism in ASP.NET MVC. It uses a predefined URL pattern to map incoming requests to controller actions. The typical pattern is:
+    {controller}/{action}/{id}
+    controller: The name of the controller (e.g., HomeController).
+    action: The action method within the controller (e.g., Index).
+    id: An optional parameter, often used to identify a specific resource.
+
+    attribute routing
+    It creates routes based on attributes placed on the controller or action level. Attribute routing provides us more control over the URL generation patterns which helps us in SEO.
+    it provide routing token such as [area], [controller], and [action]. These tokens get replaced by their values in the route table.
+    The most common root cause of slow routing performance is usually a badly behaving custom middleware.
+
+Authorize attribute 
+check for autherntication and role  which is stored in cookie after while login . managed automatically and configured in the webconfig
+    <authentication mode="Forms">
+        <forms loginUrl="~/Account/Login" timeout="2880" />
+    </authentication>
+where form state the form authentication and loginUrl state default url and 
+
+
+what is difference between ViewResult and actionResult 
+    ActionResult is the base class for all action result types in ASP.NET MVC. It represents the result of an action method.
+    Flexibility: It allows a method to return various types of results, such as:
+        ViewResult: Renders a view.
+        JsonResult: Returns JSON data.
+        RedirectResult: Redirects to another action or URL.
+        ContentResult: Returns plain text or HTML.
+        FileResult: Sends binary files to the response.
+        ViewResult
+ViewResult it is Derived Class: ViewResult is a specific type of ActionResult that is used to render a view.
+
+ difference between 
+ ViewResult and Redirect result
+
+ filters and action filters
+
+Filters allow  code to to run before or after code there are some built in filters for Authorization and customs filters are generally
+made for configuration , Error Handling and loggin 
+Filter can be applied globally or on specific controller and method level with attribute filter.
+
+Ex IActionFilter interface with the methods OnActionExecuting and OnActionExecuted  
+To make attribute filter we have to inherit Attribute class and also we can make parameterized constructor in filter
+We can change the order of the filter by IOrderFilter interface
+
+Purpose: Filters are specific to MVC/Web API applications and provide a way to inject logic at various stages of the request-processing pipeline (e.g., before or after action methods run).
+Execution Order: Filters are executed in a more fine-grained manner compared to middleware. They run before and/or after action methods in MVC/Web API controllers.
+Scope: Filters can be scoped to specific actions or controllers, making them more granular. There are several types of filters, such as Authorization Filters, Action Filters, Result Filters, and Exception Filters.
+Usage: Filters are used for actions like validation, authorization checks, logging, exception handling, and modifying the result returned by actions.
+
+
+MiddleWare
+MiddleWare is integrated in app pipeline to handel the request and responses it is.
+In core the middleware is manage in the configure method there are three way we can configure the middleware ,  app.Run , app.map , app.Use
+app.Run run delegate receive the context parameter it doesn't know anything about next middleware and it will terminate the context
+app.Use take the context and next parameter , any thing we write after next() is run after next() is executed after the next middleware is parameter is called
+app.map is the convention that is use to branching the middleware will not run anyting normal middleware after that
+also we can use app.MapWhen which is predicate ovrer context 
+
+in dotnet core the configure method has default middleware  like app.UserHttpsRedirection , app.UseRouting, app.UseAuthorization
+
+
+IMiddleware Interface is use to make the MiddleWare Class and it is used as app.useMiddleware . We can also use dependency injection and 
+constructor in middlleware
+
+Difference between MiddleWare and Filters
+
+Diffrence Between ViewBag, ViewData And TempData In MVC.
+    ViewBag - This will pass the data as a property of the object. And we have no need to typecast to read the data or for null checking. Its scope is permitted to the
+        current request, and  become null while redirecting.
+    ViewData - Data is passed in the form of a key-value pair. Typecasting is required to read the data in View if the data is complex, and we need to ensure a null check 
+        to avoid null exceptions. scope it is restricted to the current request, its value will become null while redirecting.
+    TempData - TempData is a dictionary object to passes the data from one action to another action in the same Controller or different Controllers. Usually, stored in a 
+        session object. Tempdata is also required to typecast and for null checking before reading data from it. TempData scope is limited to the next request [if we want 
+        TempData to be available even further, we should use Keep and Peek.]
+============================================
+Connection and Operation To Database
+-EnttiyFrameWork
+-EDIO.net 
+
+
+Dependency Injection
+Dependency Injection (DI) is a design pattern and a technique used to achieve Inversion of Control (IoC). It is used to inject the dependencies (services or objects) that a class needs rather than having the class create those dependencies itself. This promotes loose coupling between components and helps in making the code more testable, maintainable, and flexible.
+In simpler terms, DI allows you to provide an object that a class depends on (its dependency) from the outside, rather than allowing the class to create it. This allows the class to focus only on its core logic, and the responsibility of creating dependencies is shifted to an external entity, like a DI container.
+Types of Dependency Injection
+There are three primary types of DI in .NET:
+    Constructor Injection
+    Setter (or Property) Injection
+    Interface Injection
+
+
+Future Topics
+Razor webServer Project
+Loggers
+kesteral Server.
+Delegate and request Delegate
+
+
+Dotnet core
+
+In dotnet core In startup file the Configure  and Condifure
