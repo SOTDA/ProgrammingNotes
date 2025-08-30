@@ -1,5 +1,8 @@
 mvc lifecycle
 
+dotnet core lifecycle
+
+
 differnce between actionResult and IactionResult
 IActionResult is an interface, we can create a custom response as a return, when you use ActionResult you can return only predefined ones for returning a View or 
 a resource. With IActionResult we can return a response, or error as well. On the other hand, ActionResult is an abstract class, and you would need to make a custom 
@@ -78,6 +81,9 @@ also we can use app.MapWhen which is predicate ovrer context
 
 in dotnet core the configure method has default middleware  like app.UserHttpsRedirection , app.UseRouting, app.UseAuthorization
 
+DotnetCore -  To server the staic file we have to use app.UseStaticFiles() middlleware .\,
+To server the default file we have to use the app.UseDefaultFile()
+
 
 IMiddleware Interface is use to make the MiddleWare Class and it is used as app.useMiddleware . We can also use dependency injection and 
 constructor in middlleware
@@ -92,6 +98,33 @@ Diffrence Between ViewBag, ViewData And TempData In MVC.
     TempData - TempData is a dictionary object to passes the data from one action to another action in the same Controller or different Controllers. Usually, stored in a 
         session object. Tempdata is also required to typecast and for null checking before reading data from it. TempData scope is limited to the next request [if we want 
         TempData to be available even further, we should use Keep and Peek.]
+
+Startup class in core
+Startup class in core limits the type of dependincy injection it only allow Iconfiguration, IHostEnviorment and IwebhostEnviorment etc  using other cause 
+runtime error.
+
+ModelBinding in core
+
+Model binding takes the data from various souurce like form ,http body , parameters and querystrings etc. 
+we can pass dictionary,json,xml or our custom format in query parameter to map with our model.
+core comes with defalut json input formator.
+
+we can restric the datatype by consumes attribute[]
+
+validation in core
+
+In core we can use the built in Model atrribute validators or can make custom validators. attribute validators blongs to system.componentModel.DataAnnotations Class
+we can handle validation in controller and send error to modleState like ModelState.AddModelError(nameof(id),"id Filed is Required")
+There is setting in core that  check the nullable state for the datatype  [#nullable enable]  in controller page or in csproj property
+we can suppress this behaviour adding options.suppressimplicitrequiredattributefornonnullablereferencetypes in service.AddController option. 
+
+
+Apart form ModelstateValidation error there can be model bining error eg.sending sting in bool type.
+Model state represent error from 2 subsyatem ModelValidation and ModelBinding 
+ [ApiController] automatically manage the request handling 
+
+ We can also use the interface IValidatableObject to 
+
 ============================================
 Connection and Operation To Database
 -EnttiyFrameWork
@@ -106,6 +139,7 @@ There are three primary types of DI in .NET:
     Constructor Injection
     Setter (or Property) Injection
     Interface Injection
+    function Injection.
 
 
 Future Topics

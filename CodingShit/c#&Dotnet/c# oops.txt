@@ -1,8 +1,11 @@
 c# oops 
 
-object is declare by class and its can have modifier
-Constructor is used to create to control how the object is created
+OOP, or Object-Oriented Programming, in C# is a programming paradigm that structures software design around "objects" rather than actions or functions.The core idea is to model real-world entities and their interactions within your code. This is achieved by encapsulating both data (attributes or properties) and the functions that operate on that data (methods) within self-contained units called "objects." These objects are created from "classes," which serve as blueprints defining their structure and behavior.
 
+
+object is declare by class and its can have modifier
+
+Constructor is used to create to control how the object is created
 Type of coustructors-
     Default Constructor - Static variable 
     Parameterized Constructor -
@@ -10,6 +13,15 @@ Type of coustructors-
     Static Constructor - need to understand more
     Private Constructor - class with private constructor cannot be initiated or create an object of constructor
         use - to create the instance of certain utility and common routin class.(Used in singleton pattern)
+
+Type of classes
+-Concrete Class
+- Abstract Class
+- Static Class
+- Partial Class
+- Sealed Class
+- Generic Class
+- Nested Class8. Record Class (C# 9+)
 
 static class
      use - it is use as a container to declare static property and method.
@@ -142,6 +154,27 @@ var vs dynamic
 Generic in c#
     it allow us to make the method type independent or typesafe .
     we can also create generic classes and it can be use so that we didn't have to put type in front of every method while using generic methods.
+
+Generic Class in c#
+A generic class in C# is a class that is defined with type parameters so it can operate on any data type in a type-safe manner.
+Instead of writing multiple versions of the same class for different data types, you define one generic class that works with all types
+Uses - 
+Collections -List<T>, Dictionary<TKey, TValue>, Data containers - 	Box<T>, Result<T>
+Utility/helper classes -Comparer<T>, EqualityComparer<T> , Generic repositories in DB layer -	Repository<T> in Entity Framework
+
+Tuples
+In C#, tuples are lightweight data structures that group multiple elements into a single object. They can hold items of different types and are often used when you want to return multiple values from a method without creating a custom class or struct.
+
+Old-style Tuple class (pre-C# 7.0)
+Tuple<int, string> person = new Tuple<int, string>(1, "Alice");
+Console.WriteLine(person.Item1); // 1
+Console.WriteLine(person.Item2); // Alice
+
+2. New-style ValueTuple (C# 7.0 and later)
+var person = (Id: 1, Name: "Alice");
+Console.WriteLine(person.Id);   // 1
+Console.WriteLine(person.Name); // Alice
+
 
 
 IEnumberable - It is basically use to iterate over list of Class or type like string int etc.
