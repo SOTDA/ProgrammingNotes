@@ -1,0 +1,126 @@
+SQL Server version (the database engine) to be different from the SQL Server Management Studio (SSMS) version
+
+    SQL Server = The database engine running on a server. (e.g., SQL Server 2019, 2022, etc.)
+    SQL Server Management Studio (SSMS) = The graphical user interface (GUI) used to connect to and manage SQL Server.
+
+    SELECT @@VERSION; (To check Sql server version) 
+
+Indexes-
+    An index is created on one or more columns of a table or view to boost the performance of SELECT queries, and sometimes 
+    WHERE, JOIN, ORDER BY, or GROUP BY operations.
+    
+    Main - 
+    Clustured Indexes - Sorts and stores the data rows in the table based on the indexed column.
+                        Table can have only one clustered index (because data rows can only be sorted one way).
+                        Primary Key by default creates a clustered index.
+
+    Non-Clustered Index - Creates a separate structure from the data rows that contains pointers to the actual data.
+                          A table can have multiple non-clustered indexes.
+
+    other-
+    Unique Index - Ensures that all values in the indexed column(s) are unique. Automatically created when you define a UNIQUE constraint.
+    Composite Index - An index on two or more columns. Can be clustered or non-clustered.
+    Filtered Index - A non-clustered index with a WHERE clause. Useful when indexing only a subset of rows.  
+    Full-Text Index - Supports advanced text search on string data (e.g., CONTAINS, FREETEXT).Used for searching large text columns like articles or documents.                   
+    XML Index - Created on XML columns to improve performance of XML queries.
+    Spatial Index - Used for geospatial data (like maps, coordinates).
+
+
+    Note - Indexes improve read performance but can slow down insert, update, and delete operations.
+           Use indexing strategically—too many indexes can hurt performance and increase storage usage.
+           Always analyze query performance using tools like SQL Server Execution Plan or Database Engine Tuning Advisor.
+
+
+Keys
+    Primary Key - Uniquely identifies each row in a table. Cannot be NULL. Only one primary key per table. Automatically creates a clustered index (unless one already exists).
+    Foreign Key - Creates a relationship between two tables. A column (or set of columns) in one table that references the primary key in another.
+                  Enforces referential integrity.
+    Unique Key  - Ensures all values in a column (or combination) are unique.Can contain NULLs (but only one NULL per unique column in SQL Server).
+                  You can have multiple unique keys in a table.
+    Candidate Key - Any column (or set of columns) that can uniquely identify a row. A table can have multiple candidate keys. Primary key is chosen from among the candidate keys.
+    Alternate Key - A candidate key that is not chosen as the primary key. May be enforced using a unique constraint.
+    Composite Key - A key that consists of two or more columns. Can be used as a primary key or foreign key.
+    Super Key - A set of columns that can uniquely identify a row. Includes candidate keys and any superset of them. Theoretical concept, not implemented directly.
+    Surrogate Key - A system-generated key (usually an IDENTITY column). Used when no natural key exists.
+
+
+Difference DELETE, TRUNCATE, and DROP
+    Command  	Deletes            Data	Can be Rolled Back	          Affects Table Structure
+    DELETE	    Yes	                 Yes (with transaction)	              No
+    TRUNCATE	Yes (all)	         Yes 	                              No   identity is reset
+    DROP	    Yes (all + table)	 Yes	                             Yes (removes the table)
+
+Difference where and having
+    where - Individual row   , Used With - Regular SELECT, UPDATE, DELETE , Filter Timing - Before grouping/aggregation ,Can Use Aggregate?
+    No (e.g., SUM(), AVG() not allowed)
+    
+     having - Grouped rows, Used With - Only with GROUP BY or aggregates  Timing - After grouping/aggregation ,Can Use Aggregate?
+    Yes (can filter based on aggregate values)
+
+constraint  - PRIMARY KEY, FOREIGN KEY, UNIQUE, CHECK, NOT NULL, DEFAULT.
+
+Normalization - 
+    Normalization is the process of organizing data to reduce redundancy and improve data integrity. 
+    It involves dividing tables into smaller, related ones and using keys to maintain relationships.
+
+Joins
+ Type-
+    INNER JOIN
+    LEFT JOIN (or LEFT OUTER JOIN)
+    RIGHT JOIN
+    FULL OUTER JOIN
+    CROSS JOIN
+    SELF JOIN
+
+StoreProcedure - a Stored Procedure (or "Stored Proc") is a precompiled collection of one or more SQL statements that are stored in the database and can be executed repeatedly.
+use - Encapsulate logic, Improve performance, Reuse SQL code, Simplify complex operations, Enhance security by restricting direct table access
+Can have more than one input and outut 
+Note -  Use SET NOCOUNT ON; at the start to suppress extra messages for better performance.
+        Avoid using SP_ as a prefix—it’s reserved for system procedures.
+        Can be nested (a proc calling another proc).
+
+Transaction (ACID)- A transaction is a sequence of operations performed as a single logical unit of work. It follows the ACID properties:
+            Atomicity,Consistency,Isolation,Durability. Commit is use to complete and rollback is use to undo the operations.Genrealluy use with TRY CATCH
+            You can use SAVEPOINTs to partially roll back within a transaction.
+            We can wtite nested transaction but only commited with outermost commit.
+
+Deadlock - A deadlock occurs when two or more transactions hold locks on resources and each waits for the other to release its lock. SQL Server detects and resolves it by terminating one of the transactions
+
+
+Optimization - 
+    Use proper indexing
+    Avoid SELECT *
+    Optimize joins and queries
+    Use stored procedures
+    Analyze execution plans
+    Keep statistics up to date
+    Normalize (or sometimes denormalize) wisely
+
+Difference between function and SP -
+| Feature                             | **Function** (`UDF`)                        | **Stored Procedure** (`SP`)                    |
+| ----------------------------------- | ------------------------------------------- | ---------------------------------------------- |
+| Return Type                         | Must return a value (scalar or table)       | May return data (via result set) or nothing    |
+| Can Return Multiple Values          | ❌ No (only one return type)                 | ✅ Yes (via result sets or output params)       |
+| Use in SELECT Statement             | ✅ Yes (scalar/table functions)              | ❌ No                                           |
+| Allows `INSERT`, `UPDATE`, `DELETE` | ❌ No (except in special cases)              | ✅ Yes                                          |
+| Can Call from SQL Statements        | ✅ Yes (like `SELECT dbo.MyFunction()`)      | ❌ No                                           |
+| Can Have Output Parameters          | ❌ No                                        | ✅ Yes                                          |
+| Can Use `TRY...CATCH`               | ❌ No                                        | ✅ Yes                                          |
+| Supports Transactions               | ❌ Limited                                   | ✅ Fully supported                              |
+| Affected by Side Effects            | ❌ Should be deterministic (no side effects) | ✅ Can change data/state                        |
+| Better for...                       | Reusable logic that **returns a value**     | Complex logic, **data manipulation**, batching |
+
+
+Temp table and Temp variable Difference
+
+Temptable - Declaration -#,## , scope - Avaliable in session and connection , Lifetime - until session end or manually drop, Transaction supported
+            Can define Index and constrains , Better for large datasets due to indexing/stats
+
+type ( #TempTabel (visible only to the session that created it) and ##GlobalTempTable(visible to all sessions until the last one using it closes))
+
+Tempvariable - Declaration -@ , scope - Limited to the batch, function, or stored procedure , Lifetime - Automatically destroyed when out of scope,
+                Rollbacks do not affect data in table variables , Faster for small data sets or quick operations
+
+
+ISNULL() and COALESCE()
+indexing fragmentation
