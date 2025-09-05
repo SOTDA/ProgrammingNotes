@@ -55,15 +55,25 @@ ViewResult it is Derived Class: ViewResult is a specific type of ActionResult th
  difference between 
  ViewResult and Redirect result
 
- filters and action filters
+Filters and its type
 
-Filters allow  code to to run before or after code there are some built in filters for Authorization and customs filters are generally
+    AuthorizationFilter- control the acess to action mehod. Only have before method but no after method.
+    Resourse Filter - Execution wraps most of the filter pipeline only authorization filter runs before it (use to shortcircuit most of the pipeline)
+    Action Filter - don't have before and after event . Dont catch exception that occur in resource filter, result filter or MVC result view.
+    Exception Filter - 
+    Result Filter - 
+
+ filters and action filters  
+
+Filters allow  code to to run before or after specific stages in reqest processing pipeline code there are some built in filters for Authorization and customs filters are generally
 made for configuration , Error Handling and loggin 
 Filter can be applied globally or on specific controller and method level with attribute filter.
 
 Ex IActionFilter interface with the methods OnActionExecuting and OnActionExecuted  
 To make attribute filter we have to inherit Attribute class and also we can make parameterized constructor in filter
 We can change the order of the filter by IOrderFilter interface
+
+In Filter we use ActionExecutingContext and ActionExecutionDelegates
 
 Purpose: Filters are specific to MVC/Web API applications and provide a way to inject logic at various stages of the request-processing pipeline (e.g., before or after action methods run).
 Execution Order: Filters are executed in a more fine-grained manner compared to middleware. They run before and/or after action methods in MVC/Web API controllers.
@@ -145,10 +155,66 @@ There are three primary types of DI in .NET:
 Future Topics
 Razor webServer Project
 Loggers
-kesteral Server.
 Delegate and request Delegate
 
 
 Dotnet core
+InProcess Vs OutProcess Hosting 
+    InProcess - The ASP.NET Core app runs inside the IIS worker process (w3wp.exe). 
+            Requests are handled directly by the application without needing to proxy to an external process.
+            If you are hosting with linux can't use this .
 
-In dotnet core In startup file the Configure  and Condifure
+    OutProcess - The ASP.NET Core app runs in a separate process (usually dotnet.exe or the compiled executable).
+                IIS acts as a reverse proxy, forwarding HTTP requests to the Kestrel web server running your app.
+
+    To set it up in webconfig (<aspNetCore processPath="dotnet" arguments="YourApp.dll" hostingModel="InProcess" />
+)
+
+What is Request Delegates
+Use
+Run 
+Map
+
+Core Request lifecycle
+-> https request ->MiddleWare->Routing->Controller initialization-> Acion Method Execution->Result Execution(Data result or View reuslt)
+-> View Rendering -> response
+
+
+How core server static file
+-Core template provide root folder called wwwroot folder which will server all the staic file.
+ - app.UseStaticFiles() method insde startupt.config file use to server this staic file to client.
+
+ Different files
+ global.json - solution level setting - application name and versions
+ launchsetting.json - You can set enviorment variable in this file - development or production enviorment in this file
+ appsetting.json - Configuration settings - database connection similar to webconfig in dotnnet
+ bundelconfig.json - You can define the configuration for bundling and minification for the project
+ project.json - project level configuration
+
+How to save configuration setting like database connection in dotnet
+ appsettings.json, Azure Key Valults, Enviorment Variable, In-Memory .Net Object, CommandLine Argument, Custom provides 
+
+what are Razor Pages
+    Dependency injection in core can be done with @inject directive
+
+StateManagement technique used in ASP.NET Core
+    Cookies , Sessions , TempData , QueryString , HiddenFields
+
+Model Binding in Asp.Net Core
+    
+
+ConfigureService  and configure method
+
+
+Exception handling 
+    Try catch is use to handle the error in controller and we can throw the error with appropriate error code 
+    To handle error globally we can use middleware 
+
+Action Return Type in .aspNetCore
+    specific type  , IActionResult , ActionResult<T>
+
+    IActionResult - is appropriate when there are multiple ActionResult is possible (Actionresult is the type that represent differnt status code)
+                    eg. OkObjectresult, NotFoundObjectResult, BadRequestObjectResult  When we use controller base The BadRequest() internally use this BadRequestObjectResult
+
+    ActionResult<T> - Mix of ActionResult and specific Type .  It will inplicitly cast to the specific type and hence need to be od specific type.
+    

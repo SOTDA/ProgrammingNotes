@@ -63,6 +63,11 @@ Normalization -
     Normalization is the process of organizing data to reduce redundancy and improve data integrity. 
     It involves dividing tables into smaller, related ones and using keys to maintain relationships.
 
+    1stNF -  Rule: Each column should contain only atomic (indivisible) values. No repeating group Eg - Phone = '1234567890, 0987654321'
+    2ndNF - Be in 1NF and every non-primary-key column must depend on the whole primary key (not just part of it).Focuses on removing partial dependencies.
+    3NF -  Rule: Be in 2NF and all non-key attributes must depend only on the primary key. Eliminates transitive dependencies (non-key columns depending on other non-key columns).
+    BCNF - A stronger version of 3NF. Every determinant must be a candidate key.
+
 Joins
  Type-
     INNER JOIN
@@ -124,3 +129,8 @@ Tempvariable - Declaration -@ , scope - Limited to the batch, function, or store
 
 ISNULL() and COALESCE()
 indexing fragmentation
+
+An auto-incrementing ID is implemented using the IDENTITY property on a column. identify can be of type INT ,TINYINT,SMALLINT,BIGINT other are invalid
+Note:Choose the smallest data type that can accommodate your expected number of rows to save space.
+     You cannot change a column to IDENTITY after creation. You must drop and recreate the column or use a workaround.
+     You can only have one IDENTITY column per table.

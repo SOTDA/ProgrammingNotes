@@ -3,21 +3,72 @@ Interpolation - {{}}
 property binding  - [] inside Html tags
 Event binding - click etc.
 
-directive can change the behaviour and appearance of DOM element
-Directives can implement all lifecycle hooks
-Directives can not have templates
+Component - In Angular, a component is the basic building block of the UI — it's essentially a class that controls a section of the screen
+			(called a "view") and defines the logic, layout, and styling for that section.
+
+Directive - In Angular, a directive is a class that lets you add custom behavior to elements in the DOM.Unlike components (which have a template),
+					 directives don’t have their own UI — they work on existing DOM elements.
 
 
-directives Type 
-structual directive (* is structual deirective can modify DOM)
-Attribute directive (Generally not add or remove element)
+	directive can change the behaviour and appearance of DOM element
+	Directives can implement all lifecycle hooks
+	Directives can not have templates
 
-Built-in directives
-*ngIf
-*ngFor
-*ngSwitch
-[ngClass]
-[ngStyle]
+
+	directives Type
+	Componet directive with template
+	structual directive (* is structual deirective can modify DOM) 
+		buit-in:-
+		<div *ngIf="isLoggedIn">Welcome!</div>
+		<ul>
+		<li *ngFor="let user of users">{{ user.name }}</li>
+		</ul>
+
+		custom:- 
+			@Directive({
+		selector: '[appUnless]'
+		})
+		export class UnlessDirective {
+		constructor(private templateRef: TemplateRef<any>, private viewContainer: ViewContainerRef) {}
+
+		@Input() set appUnless(condition: boolean) {
+			if (!condition) {
+			this.viewContainer.createEmbeddedView(this.templateRef);
+			} else {
+			this.viewContainer.clear();
+			}
+		}
+		}
+
+	Attribute directive (Generally not add or remove element)
+
+		Built-in -
+		<p [ngClass]="{ active: isActive }">Styled paragraph</p>
+		<p [ngStyle]="{ color: 'red' }">Red text</p>
+
+		custom -
+		@Directive({
+		selector: '[appHighlight]'
+		})
+		export class HighlightDirective {
+		constructor(el: ElementRef) {
+			el.nativeElement.style.backgroundColor = 'yellow';
+		}
+		}
+
+		Use a directive when:
+			You want to modify existing elements (style, behavior, visibility).
+			You want to encapsulate behavior that can be reused (e.g., auto-focus, form validation).
+			You don’t need a new template (use a component instead if you do).
+
+	Built-in directives
+	*ngIf
+	*ngFor
+	*ngSwitch
+	[ngClass]
+	[ngStyle]
+
+Router-Outlet - In Angular, <router-outlet> is a directive and placeholder element that tells the Angular router where to render the matched component for a given route.
 
 
 pipes
@@ -33,11 +84,15 @@ Every lifecycle contains the interface eg. OnInit
 ngOnChanges -> change detection -(can be applied on component or directive that has @input) ngOnChanges(change:SimpleChanges)- can be use to log something
 ngOnInit
 ngDoCheck-> IS used to detect change anywhere in component (generally not used)
-ngAfterConententInit -> used with <ng-content>
+			Every time Angular runs change detection, whether anything has changed or not.
+			This includes:Input property changes,Events (clicks, form changes),Timer-based triggers (e.g., setTimeout, setInterval)
+			Any async operations (HTTP requests, Observables, etc.)
+ngAfterConententInit -> used with <ng-content> , Called after Angular projects external content (via <ng-content>),Called only once.
 ngAfterConententChecked ->used when we need to do something when the state is changes once.
 ngAfterViewInit -> @viewChild by default can be accessed in ngAfterViewInit
 ngAfterViewChecked ->
-ngOnDestroy -> Use case (uses to unsubscribe to the data or to reset some data or do logic on destroy component )
+ngOnDestroy ->  Called just before Angular destroys the component.Important for cleanup to avoid memory leaks.
+Use case (uses to unsubscribe to the data or to reset some data or do logic on destroy component )
 
 
 
@@ -156,3 +211,48 @@ To Be Google
 Advance topics 
 ngrx
 rxjs other services
+
+
+we can create service in angular with provierIn : root we can access it from anywhere in application.
+and we can provide this service to particular Module 
+
+observable and promises is use to handle asyncronus operaion and asyncronus data 
+Eg. const observable = new Observable(subscriber => {
+  subscriber.next('Hello');
+  subscriber.next('World');
+  subscriber.complete();
+});
+
+observable.subscribe(value => console.log(value));
+
+An Observable is a data stream that you can subscribe to, and it will emit values over time. Think of it as a way to watch for changes — 
+like a radio signal, data keeps coming and you can react to it. (belong to Rxjs)
+Commonly use in - http request , form change, Router param , event handling (we can turn dom event to observable)
+
+Common RxJS Operators in Angular
+Operator	Purpose
+map()	Transform values
+filter()	Filter emissions
+switchMap()	Cancel previous inner observable and switch to new one
+mergeMap()	Flatten and merge multiple observables
+catchError()	Handle errors in observable streams
+debounceTime()	Wait before emitting value (e.g., in search inputs)
+
+Modules in angular
+A module is a container that groups components, directives, pipes, and services. Every Angular application has a root module called AppModule.
+
+What is Change Detection in Angular?
+Change detection is the mechanism by which Angular updates the DOM when data changes. Angular uses zones to detect changes and re-render components.
+Optimizing with:
+ChangeDetectionStrategy.OnPush
+ngZone.runOutsideAngular()
+
+
+What are guards in Angular?
+	Guards control access to routes:
+	CanActivate, CanDeactivate, Resolve, CanLoad
+	CanActivate: Only allow logged-in users to access a dashboard.
+	CanDeactivate: Warn the user before leaving a form with unsaved changes.
+	CanLoad: Prevent loading of feature modules unless certain conditions are met (e.g., roles or permissions).
+	CanActivateChild: Protect child routes of a parent route.
+	CanMatch: Advanced matching logic, like A/B testing or experimental routes.

@@ -1,9 +1,12 @@
 c# oops 
 
-OOP, or Object-Oriented Programming, in C# is a programming paradigm that structures software design around "objects" rather than actions or functions.The core idea is to model real-world entities and their interactions within your code. This is achieved by encapsulating both data (attributes or properties) and the functions that operate on that data (methods) within self-contained units called "objects." These objects are created from "classes," which serve as blueprints defining their structure and behavior.
+ OOP, or Object-Oriented Programming, in C# is a programming paradigm that structures software design around "objects" rather than actions or
+ functions.The core idea is to model real-world entities and their interactions within your code. This is achieved by encapsulating both data 
+ (attributes or properties) and the functions that operate on that data (methods) within self-contained units called "objects." These objects 
+ are created from "classes," which serve as blueprints defining their structure and behavior.
 
 
-object is declare by class and its can have modifier
+object is declare by  class and its can have modifier
 
 Constructor is used to create to control how the object is created
 Type of coustructors-
@@ -66,6 +69,7 @@ Extension methods -
 
 
         Abstraction-
+        The concept of hiding the complex implementation details and showing only the necessary features of an object. In C#, this is achieved using abstract classes and interfaces.
              can be achived with abstract classes and interfaces.
 
                 Diffrence Between interfaces and abstract classes
@@ -85,7 +89,8 @@ Extension methods -
                     A non-abstract class derived from an abstract class must include actual implementations of all inherited abstract methods and accessors.
                     It is an error to use the static or virtual modifiers in an abstract method declaration.
 
-        Polymorphism -
+        Polymorphism - The ability of an object to take on many forms. In C#, it allows objects of different classes to be treated as instances of a common base class.
+         It's achieved through method overloading (compile-time polymorphism) and method overriding (run-time polymorphism).
             Compile time - method overloading ,operator overloading
             runtime - virual and override 
 
@@ -156,24 +161,24 @@ Generic in c#
     we can also create generic classes and it can be use so that we didn't have to put type in front of every method while using generic methods.
 
 Generic Class in c#
-A generic class in C# is a class that is defined with type parameters so it can operate on any data type in a type-safe manner.
-Instead of writing multiple versions of the same class for different data types, you define one generic class that works with all types
-Uses - 
-Collections -List<T>, Dictionary<TKey, TValue>, Data containers - 	Box<T>, Result<T>
-Utility/helper classes -Comparer<T>, EqualityComparer<T> , Generic repositories in DB layer -	Repository<T> in Entity Framework
+    A generic class in C# is a class that is defined with type parameters so it can operate on any data type in a type-safe manner.
+    Instead of writing multiple versions of the same class for different data types, you define one generic class that works with all types
+    Uses - 
+    Collections -List<T>, Dictionary<TKey, TValue>, Data containers - 	Box<T>, Result<T>
+    Utility/helper classes -Comparer<T>, EqualityComparer<T> , Generic repositories in DB layer -	Repository<T> in Entity Framework
 
 Tuples
-In C#, tuples are lightweight data structures that group multiple elements into a single object. They can hold items of different types and are often used when you want to return multiple values from a method without creating a custom class or struct.
+    In C#, tuples are lightweight data structures that group multiple elements into a single object. They can hold items of different types and are often used when you want to return multiple values from a method without creating a custom class or struct.
 
-Old-style Tuple class (pre-C# 7.0)
-Tuple<int, string> person = new Tuple<int, string>(1, "Alice");
-Console.WriteLine(person.Item1); // 1
-Console.WriteLine(person.Item2); // Alice
+    Old-style Tuple class (pre-C# 7.0)
+    Tuple<int, string> person = new Tuple<int, string>(1, "Alice");
+    Console.WriteLine(person.Item1); // 1
+    Console.WriteLine(person.Item2); // Alice
 
-2. New-style ValueTuple (C# 7.0 and later)
-var person = (Id: 1, Name: "Alice");
-Console.WriteLine(person.Id);   // 1
-Console.WriteLine(person.Name); // Alice
+    2. New-style ValueTuple (C# 7.0 and later)
+    var person = (Id: 1, Name: "Alice");
+    Console.WriteLine(person.Id);   // 1
+    Console.WriteLine(person.Name); // Alice
 
 
 
@@ -197,8 +202,17 @@ Delegates - Delegates in C# are similar to the function pointer in C/C++. Delega
 Since C# 8, default implementations can also be included in interfaces.
 
 C# Access Modifiers
-In C#, members of a class can be marked with access modifiers, including public and private. A public member can be accessed by other classes. A private member can only be accessed by code in the same class.
-By default, fields, properties, and methods are private, and classes are public.
+    In C#, members of a class can be marked with access modifiers, including public and private. A public member can be accessed by other classes. A private member can only be accessed by code in the same class.
+    By default, fields, properties, and methods are private, and classes are public.
+    Access modifiers are keywords used to specify the declared accessibility of a member or a type. They are crucial for implementing the principle of encapsulation by controlling which parts of your code can access an object's members.
+        public: Accessible by any code in the same assembly or another assembly that references it.
+        private: Accessible only within the class or struct in which it is declared.
+        protected: Accessible within the containing class and by types derived from the containing class.
+        internal: Accessible only within the same assembly.
+        protected internal: Accessible within the current assembly and by types derived from the containing class in any assembly.
+        private protected: Accessible within the containing class or by types derived from the containing class, but only within the same assembly.
+    Encapsulation uses these modifiers to hide the internal state of an object and expose a controlled interface through public methods or properties, which prevents direct, uncontrolled modification of the data. 
+        For example, a bank account's balance field can be private while Deposit and Withdraw methods are public.
 
 C# Field
 In C#, a field stores a piece of data within an object. It acts like a variable and may have a different value for each instance of a type.
@@ -211,13 +225,13 @@ C# Members
 In C#, a class contains members, which define the kind of data stored in a class and the behaviors a class can perform. 
 
 Extension Methods
-Extension methods are special static methods that can be called as if they were instance methods of an existing type.
- we can also create extention method for IEnumerable.
-They are a convenient way to add new methods to an existing class without changing the original source code or inheriting from the class.
-Extension methods look and behave like instance methods, but there are a few important differences to keep in mind:
-Extension methods cannot access private members of the extended type.
-They also do not participate in inheritance or polymorphism.
-You cannot override an existing method with an extension method.
+    Extension methods are special static methods that can be called as if they were instance methods of an existing type.
+    we can also create extention method for IEnumerable.
+    They are a convenient way to add new methods to an existing class without changing the original source code or inheriting from the class.
+    Extension methods look and behave like instance methods, but there are a few important differences to keep in mind:
+    Extension methods cannot access private members of the extended type.
+    They also do not participate in inheritance or polymorphism.
+    You cannot override an existing method with an extension method.
 
 
 
