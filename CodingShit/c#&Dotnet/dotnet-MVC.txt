@@ -59,14 +59,15 @@ Filters and its type
 
     AuthorizationFilter- control the acess to action mehod. Only have before method but no after method.
     Resourse Filter - Execution wraps most of the filter pipeline only authorization filter runs before it (use to shortcircuit most of the pipeline)
-    Action Filter - don't have before and after event . Dont catch exception that occur in resource filter, result filter or MVC result view.
-    Exception Filter - 
+    Action Filter -
+    Exception Filter -  don't have before and after event . Dont catch exception that occur in resource filter, result filter or MVC result view.
     Result Filter - 
 
  filters and action filters  
 
-Filters allow  code to to run before or after specific stages in reqest processing pipeline code there are some built in filters for Authorization and customs filters are generally
+Filters allow  code to to run before or after specific stages in reqest processing pipeline of MVC actions. There are some built in filters for Authorization and customs filters are generally
 made for configuration , Error Handling and loggin 
+Unlike middleware (which works globally on every request), filters work inside the MVC pipeline, i.e., at controller/action level.
 Filter can be applied globally or on specific controller and method level with attribute filter.
 
 Ex IActionFilter interface with the methods OnActionExecuting and OnActionExecuted  
@@ -83,6 +84,13 @@ Usage: Filters are used for actions like validation, authorization checks, loggi
 
 MiddleWare
 MiddleWare is integrated in app pipeline to handel the request and responses it is.
+Every HTTP request in ASP.NET Core passes through a sequence of middleware components before reaching the endpoint (Controller/Minimal API).
+    Each middleware can:
+    Process the request.
+    Pass the request to the next middleware (await next()).
+    Process the response when it comes back up the pipeline.
+    Short-circuiting is possible
+
 In core the middleware is manage in the configure method there are three way we can configure the middleware ,  app.Run , app.map , app.Use
 app.Run run delegate receive the context parameter it doesn't know anything about next middleware and it will terminate the context
 app.Use take the context and next parameter , any thing we write after next() is run after next() is executed after the next middleware is parameter is called
@@ -217,4 +225,33 @@ Action Return Type in .aspNetCore
                     eg. OkObjectresult, NotFoundObjectResult, BadRequestObjectResult  When we use controller base The BadRequest() internally use this BadRequestObjectResult
 
     ActionResult<T> - Mix of ActionResult and specific Type .  It will inplicitly cast to the specific type and hence need to be od specific type.
+
+
+what does [ApiController] [Route("[controller]")] do in dotnet core api ccontroller
+    Marks the class as an API controller, enabling special behaviors for web APIs.
+        | Feature                             | Description                                                              |
+    | ----------------------------------- | ------------------------------------------------------------------------ |
+    | ✅ **Automatic model validation**    | Returns 400 Bad Request if `ModelState.IsValid == false`                 |
+    | ✅ **Parameter binding by default**  | Automatically binds `[FromBody]`, `[FromRoute]`, etc.                    |
+    | ✅ **ProblemDetails responses**      | Returns standardized error responses (`application/problem+json`)        |
+    | ✅ **Attribute routing enforcement** | Requires route attributes like `[Route]`, `[HttpGet]`, etc.              |
+    | ✅ **Automatic 400 responses**       | If model binding or validation fails, 400 is returned without extra code |
     
+    [controller] is a token that automatically uses the controller class name without the "Controller" suffix.
+
+IHostedService and BackgroundService?
+
+
+Repository Patter 
+The Repository Pattern is a design pattern used primarily in .NET (and other object-oriented frameworks) to abstract 
+the data access layer from the business logic. It’s a key part of Domain-Driven Design (DDD) and is commonly used in 
+applications built with Entity Framework (EF) or other ORM tools.
+
+UOW pattern
+
+
+
+Factory pattern 
+
+
+Singleton

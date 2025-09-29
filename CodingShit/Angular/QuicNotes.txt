@@ -2,11 +2,12 @@ binding data in angular three ways-
 Interpolation - {{}}
 property binding  - [] inside Html tags
 Event binding - click etc.
+Two-Way Binding - [(ngModel)]="prop"
 
 Component - In Angular, a component is the basic building block of the UI — it's essentially a class that controls a section of the screen
 			(called a "view") and defines the logic, layout, and styling for that section.
 
-Directive - In Angular, a directive is a class that lets you add custom behavior to elements in the DOM.Unlike components (which have a template),
+Directive -A directive in Angular is a class that adds behavior, appearance, or structure to elements in your Angular application .Unlike components (which have a template),
 					 directives don’t have their own UI — they work on existing DOM elements.
 
 
@@ -148,6 +149,7 @@ cmoponent Communication
 
 <<-- Angular http and observables -->> 
 httpclient internally use rxjs
+httpRequest - Used for custom requests Supports manual configuration (e.g. reportProgress) Required when you need to track upload/download progress
 we can configure proxy using httpClient insted of using CORS 	
 
 observable has observer that will observe for change and internally next method is call. In observable we have three functions 
@@ -158,7 +160,7 @@ Rxjs Operators - operators can be use to modify the stream of data
 shareReplay  - it is use to cache the data so we dont have to repeate call in stream of data
 this.subscription.unsubscribe will use to destroy subscription manually on ngOnDestroy
 catcherror - It is use the error handling generally use in service that is use to display error. 
-MapOperators - there are diifrent map operators it is use to manupilate data form stream .
+MapOperators - there are diferent map operators it is use to manupilate data form stream .
 
 AsyncPipe - is use to subscribe stream of data  and it will automatically unsubscribe when the ngOnDestroy is called. 
 
@@ -185,8 +187,19 @@ There are two types
 2) reactive form
 
 template driven form need html side form and validation . I will require model to bind the form model with [(ngModle)] .
+pristine - means form is not touched 
 
 
+------------Custom Directive-------------------------------------
+Directive can use lifecycle hooks
+selector is use to add directive to template '[nameofdirective]'
+constructor is use to take the type of 
+we can use document as @Inject(DOCUMENT) private:document: Document
+
+Hostlistner - it is use to listen to any event on parent component
+
+
+we can create the custom validators	by implemeting validation class
 
 =========Tips and tricks==========
 
@@ -207,6 +220,7 @@ To Be Google
 -Factory
 -tap and map fuctions
 -pipes and subscribe in rxjs
+-subject
 
 Advance topics 
 ngrx
@@ -256,3 +270,10 @@ What are guards in Angular?
 	CanLoad: Prevent loading of feature modules unless certain conditions are met (e.g., roles or permissions).
 	CanActivateChild: Protect child routes of a parent route.
 	CanMatch: Advanced matching logic, like A/B testing or experimental routes.
+
+
+Lazy Loading in abgular	
+
+@ViewChild
+In Angular, @ViewChild is a decorator used to get a reference to a child component, directive, or DOM element inside the template.
+Useful when you want to call child methods, read child properties, or manipulate DOM directly.

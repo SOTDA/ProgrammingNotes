@@ -8,7 +8,8 @@ c# oops
 
 object is declare by  class and its can have modifier
 
-Constructor is used to create to control how the object is created
+A constructor in C# is a special method that's automatically called when an object is created from a class.
+ Its main purpose is to initialize the object, often by assigning values to its fields or setting up any dependencies it needs.
 Type of coustructors-
     Default Constructor - Static variable 
     Parameterized Constructor -
@@ -53,8 +54,9 @@ Extension methods -
 
             If same method is present in both parent and derived class it is managed by virtual and override keywords.
 
-            Sealed and staic keyword is use to prevent class form inheritance.
+            Sealed and staic keyword is use to prevent class form inheritance.or a method from being overridden.
             Diffrence - you can create object of sealed class but you can't create object of static class.we can't inherit sealed
+
 
             we can call the constructor of the base class from the derived class like -
                     public class TestClass2 : TestClass1
@@ -63,7 +65,7 @@ Extension methods -
                     }
                 
 
-        Encaptulation - it is use for security and hiding the unnecessary details.
+        Encaptulation - Bundling data and methods that operate on the data into a single unit (class).
             achived by class identifiers (public,private etc)
             generally the private field is created and accessed with get set property.
 
@@ -191,6 +193,14 @@ IQueryable - Iqueryable is inherited form IEnumerable so anything that you can d
     IEnumerable will get the whole data from database and then perform filtration while in Iqueryable it will fetch only filtered data from database.
     IQuerable is in SYSTEM.LINQ namespace and IEnumerable is in SYSTEM.Collection namespace.
 
+Transaxtion in EF core- bContext.Database.BeginTransaction() : 
+    AsNoTracking() is use to 
+Concurrency Handling in EF Core?
+Global Query Filters in EF Core?
+
+
+.Skip().Take() is use for pagination in EFCore
+
 Delegates - Delegates in C# are similar to the function pointer in C/C++. Delegates are the library class in System namespace.
     These are the type-safe pointer of any method.
     Delegates are mainly used to implementing the callback method and events.
@@ -220,6 +230,10 @@ A field can have a number of modifiers, including: public, private, static, and 
 
 C# this Keyword
 In C#, the this keyword refers to the current instance of a class.
+    1. Accessing Instance Members
+    2. Calling Another Constructor (Constructor Chaining) [ public Person(string name) : this(name, 0) { }]
+    3. Passing the Current Object as a Parameter
+    4. Extending the Current Object (In Extension Methods)
 
 C# Members
 In C#, a class contains members, which define the kind of data stored in a class and the behaviors a class can perform. 
@@ -234,6 +248,30 @@ Extension Methods
     You cannot override an existing method with an extension method.
 
 
+is, as, and typeof in C#
+    is – Checks object type.
+    as – Casts object safely (returns null if cast fails).
+    typeof – Gets type at compile time.
+
+base is used to:
+    Call base class constructor.
+    Access base class methods/properties that are overridden.
+
+What is the use of the readonly keyword in C#?
+    readonly fields can only be assigned during declaration or in a constructor.
+    It’s used to create immutable objects.
+
+Mutable vs Immutable objects
+    A mutable object is one whose fields or properties can be changed after the object is created.
+    An immutable object is one whose state cannot be changed after it is created.
+        Fields or properties are set at creation time and never change.Fields are readonly or have private setters.
+        Common Immutable Types in .NET: System.String, System.DateTime, System.Guid, System.Uri, System.Tuple<>, System.ValueTuple<> (if not mutated)
+
+Difference between const, readonly, and static
+    Keyword	    Meaning	                    Assigned	                        Scope
+    const	    Compile-time constant	At declaration only	                Static by default
+    readonly	Runtime constant	    In constructor	                    Instance-level
+    static	    One per type	        Any time	                        Shared by all instances
 
 To LEARN
 value type and refrence type
@@ -249,3 +287,16 @@ Yes, one can create an Object Creation by using the following methods-
 
 Abstract Class, Static Class, Private or Protected Constructor.
 
+
+
+
+Sealed
+    In C#, the sealed keyword is used to prevent further inheritance of a class or override of a method.
+    1. Sealed Class
+        A sealed class cannot be inherited by any other class.
+    2. Sealed Method
+        A sealed method is used inside a derived class to prevent further overriding of a virtual method from the base class.
+
+You Cannot Seal:
+Static classes (they are already implicitly sealed).
+Abstract classes (contradictory: abstract = incomplete, sealed = locked).

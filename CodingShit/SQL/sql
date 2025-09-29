@@ -39,7 +39,8 @@ Keys
                   You can have multiple unique keys in a table.
     Candidate Key - Any column (or set of columns) that can uniquely identify a row. A table can have multiple candidate keys. Primary key is chosen from among the candidate keys.
     Alternate Key - A candidate key that is not chosen as the primary key. May be enforced using a unique constraint.
-    Composite Key - A key that consists of two or more columns. Can be used as a primary key or foreign key.
+    Composite Key - A key that consists of two or more columns. Can be used as a primary key or foreign key. It’s used when no  single column 
+                    uniquely identify a row. Instead, a combination of columns is required to ensure uniqueness.
     Super Key - A set of columns that can uniquely identify a row. Includes candidate keys and any superset of them. Theoretical concept, not implemented directly.
     Surrogate Key - A system-generated key (usually an IDENTITY column). Used when no natural key exists.
 
@@ -134,3 +135,68 @@ An auto-incrementing ID is implemented using the IDENTITY property on a column. 
 Note:Choose the smallest data type that can accommodate your expected number of rows to save space.
      You cannot change a column to IDENTITY after creation. You must drop and recreate the column or use a workaround.
      You can only have one IDENTITY column per table.
+
+RANK() and DENSE_RANK()
+RANK() Skips ranks if there are ties (i.e., non-unique values).
+DENSE_RANK() Does not skip rank numbers after ties.
+
+
+
+A CTE (Common Table Expression) in SQL Server is a temporary result set that you can reference within a SELECT, INSERT, UPDATE, or DELETE statement.
+ It helps make complex queries easier to read, maintain, and modularize.
+ | Use Case                       | Description                                                                                 |
+| ------------------------------ | ------------------------------------------------------------------------------------------- |
+| ✅ **Simplify complex queries** | Break down big queries into readable parts                                                  |
+| 🔄 **Recursion**               | Use CTEs to write recursive queries (e.g., hierarchical data like org charts, folder trees) |
+| 🔁 **Repeated logic reuse**    | Avoid repeating the same subquery multiple times                                            |
+| ⚙️ **Use with DML operations** | Use in `UPDATE`, `DELETE`, and `INSERT` statements                                          |
+
+
+Common Windows Functions
+| Function                                | Purpose                                             |
+| --------------------------------------- | --------------------------------------------------- |
+| `ROW_NUMBER()`                          | Sequential numbering of rows                        |
+| `RANK()`                                | Ranking with gaps                                   |
+| `DENSE_RANK()`                          | Ranking without gaps                                |
+| `NTILE(N)`                              | Split rows into N groups (quartiles, deciles, etc.) |
+| `FIRST_VALUE()`                         | First value in window                               |
+| `LAST_VALUE()`                          | Last value in window                                |
+| `LAG()`                                 | Look at previous row                                |
+| `LEAD()`                                | Look at next row                                    |
+| `CUME_DIST()`                           | Cumulative distribution (0–1)                       |
+| `PERCENT_RANK()`                        | Relative rank (0–1)                                 |
+| `SUM()/AVG()/MIN()/MAX()` with `OVER()` | Aggregates per partition without collapsing rows    |
+
+
+String Manuputation 
+| Function           | Description                                                                 |
+| ------------------ | --------------------------------------------------------------------------- |
+| **`LEN()`**        | Returns the number of characters in a string (excluding trailing spaces).   |
+| **`DATALENGTH()`** | Returns the number of bytes used to represent any expression.               |
+| **`LEFT()`**       | Returns the left part of a string with the specified number of characters.  |
+| **`RIGHT()`**      | Returns the right part of a string with the specified number of characters. |
+| **`SUBSTRING()`**  | Returns part of a string starting from a specified position.                |
+| **`CHARINDEX()`**  | Finds the starting position of a substring within a string.                 |
+| **`PATINDEX()`**   | Returns the position of a pattern in a string using wildcards.              |
+| **`REPLACE()`**    | Replaces all occurrences of a substring within a string.                    |
+| **`STUFF()`**      | Deletes part of a string and inserts another substring.                     |
+| **`CONCAT()`**     | Concatenates two or more strings.                                           |
+| **`CONCAT_WS()`**  | Concatenates strings with a separator (SQL Server 2017+).                   |
+| **`LTRIM()`**      | Removes leading spaces from a string.                                       |
+| **`RTRIM()`**      | Removes trailing spaces from a string.                                      |
+| **`TRIM()`**       | Removes both leading and trailing spaces (SQL Server 2017+).                |
+| **`UPPER()`**      | Converts all letters in a string to uppercase.                              |
+| **`LOWER()`**      | Converts all letters in a string to lowercase.                              |
+| **`REPLICATE()`**  | Repeats a string a specified number of times.                               |
+| **`SPACE()`**      | Returns a string of repeated spaces.                                        |
+| **`FORMAT()`**     | Formats a value (e.g., number, date) as a string.                           |
+| **`STRING_AGG()`** | Concatenates values from multiple rows with a delimiter (SQL Server 2017+). |
+| **`QUOTENAME()`**  | Returns a Unicode string with delimiters added.                             |
+| **`STR()`**        | Converts numeric value to string with formatting.                           |
+| **`SOUNDEX()`**    | Returns a four-character code to evaluate sound-alike strings.              |
+| **`DIFFERENCE()`** | Compares two SOUNDEX values.                                                |
+| **`UNICODE()`**    | Returns the Unicode code point for the first character.                     |
+| **`NCHAR()`**      | Returns the Unicode character for a code point.                             |
+| **`ASCII()`**      | Returns ASCII code of the first character.                                  |
+| **`CHAR()`**       | Returns the character for an ASCII code.                                    |
+| **`COLLATE`**      | Specifies the collation for a string comparison or result.                  |
